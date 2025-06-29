@@ -9,17 +9,16 @@
   </style>
 </head>
 <body>
-  <video id="video" autoplay muted></video>
+  <video id="video" autoplay muted loop playsinline></video>
   <script>
-    // === 動画ファイル名一覧（同じフォルダにある動画） ===
-    const videoList = ["ファイノン.mp4"]; // ←ここ書き換えて！
+    const videoList = ["ファイノン.mp4"]; // 同じフォルダに置いてね！
     let current = 0;
 
     const videoElement = document.getElementById("video");
 
     function playNext() {
       videoElement.src = videoList[current];
-      videoElement.play();
+      videoElement.play().catch(console.error);
       current = (current + 1) % videoList.length;
     }
 
