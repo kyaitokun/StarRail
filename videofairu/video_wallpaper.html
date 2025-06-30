@@ -47,13 +47,27 @@
     const video = document.getElementById("bg");
     const errorText = document.getElementById("error-text");
 
-    // 再生エラー対策
-    video.play().catch(err => {
-      console.warn("Video play failed:", err);
-      errorText.style.display = "block"; // エラーテキスト表示
+    let playedSuccessfully = false;
+
+    // 実際に再生されたときのイベント
+    video.addEventListener("playing", () => {
+      playedSuccessfully = true;
+      console.log("再生開始");
     });
 
-    // 念押しのループ処理
+    // 5秒待っても再生されていなければエラー表示
+    setTimeout(() => {
+      if (!playedSuccessfully) {
+        console.warn("再生できなかった可能性あり");
+        errorText.style.display = "block";
+      }
+    }, 5000);
+
+    // 念押しの再生＆ループ処理
+    video.play().catch(err => {
+      console.warn("再生エラー:", err);
+    });
+
     video.addEventListener("ended", () => {
       video.currentTime = 0;
       video.play();
