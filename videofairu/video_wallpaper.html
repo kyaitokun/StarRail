@@ -7,34 +7,53 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: red;
+      background: blue;
       overflow: hidden;
       height: 100%;
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     video {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
       object-fit: cover;
+    }
+
+    #error-text {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      display: none;
+      z-index: 1;
+      text-shadow: 1px 1px 4px black;
     }
   </style>
 </head>
 <body>
   <video id="bg" autoplay muted loop playsinline>
-    <source src="./fainon.mp4" type="video/mp4">
+    <source src="fainon.mp4" type="video/mp4">
     お使いのブラウザは video タグをサポートしていません。
   </video>
 
+  <div id="error-text">動画を読み込めませんでした</div>
+
   <script>
     const video = document.getElementById("bg");
+    const errorText = document.getElementById("error-text");
 
-    // 念のため再生エラー対策
+    // 再生エラー対策
     video.play().catch(err => {
       console.warn("Video play failed:", err);
+      errorText.style.display = "block"; // エラーテキスト表示
     });
 
-    // 念押しのループ処理（HTMLの loop 属性でも十分だけど保険）
+    // 念押しのループ処理
     video.addEventListener("ended", () => {
       video.currentTime = 0;
       video.play();
