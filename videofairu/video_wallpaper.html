@@ -2,31 +2,43 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>YouTube Lively Wallpaper</title>
+  <title>Lively Video</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
+      background: red;
       overflow: hidden;
       height: 100%;
       width: 100%;
-      background: black;
     }
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
+
+    video {
       width: 100vw;
       height: 100vh;
-      border: none;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <iframe
-    src="https://youtu.be/SLCb7Rm9748?list=RDMMSLCb7Rm9748"
-    allow="autoplay; fullscreen"
-    allowfullscreen>
-  </iframe>
+  <video id="bg" autoplay muted loop playsinline>
+    <source src="./fainon.mp4" type="video/mp4">
+    お使いのブラウザは video タグをサポートしていません。
+  </video>
+
+  <script>
+    const video = document.getElementById("bg");
+
+    // 念のため再生エラー対策
+    video.play().catch(err => {
+      console.warn("Video play failed:", err);
+    });
+
+    // 念押しのループ処理（HTMLの loop 属性でも十分だけど保険）
+    video.addEventListener("ended", () => {
+      video.currentTime = 0;
+      video.play();
+    });
+  </script>
 </body>
 </html>
