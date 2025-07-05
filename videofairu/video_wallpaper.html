@@ -2,7 +2,10 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lively Video</title>
+    <meta name="description" content="sample text sample text sample text sample textsample text">
+
   <style>
     html, body {
       margin: 0;
@@ -43,6 +46,11 @@
 
   <div id="error-text">動画を読み込めませんでした</div>
 
+    <video autoplay muted loop playsinline>
+    <source src="https://kyaitokun.github.io/StarRail/videofairu/fainon.mp4" type="video/mp4" />
+    お使いのブラウザは video タグをサポートしていません。
+  </video>
+
   <script>
     const video = document.getElementById("bg");
     const errorText = document.getElementById("error-text");
@@ -72,6 +80,8 @@
       video.currentTime = 0;
       video.play();
     });
+
+  
   </script>
 </body>
 </html>
